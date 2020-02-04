@@ -65,28 +65,12 @@ public class NeuralNetworkWithoutLearning {
         return result;
     }
 
-    private double[] multiplyMatrixByVector(final double[][] matrix, final double[] vector) {
-        double[] result = new double[matrix.length];
-        for (int row = 0; row < result.length; row++) {
-            result[row] = multiplyMatrixByVector(matrix[row], vector);
-        }
-        return result;
-    }
-
-    private double multiplyMatrixByVector(final double[] matrix, final double[] vector) {
-        double cell = 0;
-        for (int col = 0; col < vector.length; col++) {
-            cell += matrix[col] * vector[col];
-        }
-        return cell;
-    }
-
     /**
      *
      * @return prediction bases on some inputs
      */
     public boolean predict() {
-        final double[] inputsOfHidden = multiplyMatrixByVector(WEIGHTS_INPUT_TO_HIDDEN, inputs);
+        final double[] inputsOfHidden = NeuralUtils.multiplyMatrixByVector(WEIGHTS_INPUT_TO_HIDDEN, inputs);
         System.out.println("Inputs of hiden layer:");
         System.out.println(Arrays.toString(inputsOfHidden));
 
@@ -94,7 +78,7 @@ public class NeuralNetworkWithoutLearning {
         System.out.println("Outputs of hiden layer:");
         System.out.println(Arrays.toString(outputsOfHidden));
 
-        final double output = multiplyMatrixByVector(WEIGHTS_HIDDEN_TO_OUTPUT, outputsOfHidden);
+        final double output = NeuralUtils.multiplyVectors(WEIGHTS_HIDDEN_TO_OUTPUT, outputsOfHidden);
         System.out.println("Output:");
         System.out.println(output);
 
